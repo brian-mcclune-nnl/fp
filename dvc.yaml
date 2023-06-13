@@ -1,0 +1,51 @@
+stages:
+  split:
+    cmd: python src/split.py
+    deps:
+    - data/flower_photos
+    - split.py
+    params:
+    - split
+    outs:
+    - results/data/train.txt
+    - results/data/test.txt
+  train:
+    cmd: python src/train.py
+    deps:
+    - data/flower_photos
+    - train.py
+    - results/data/train.txt
+    params:
+    - train
+    outs:
+    - results/models/myefficientnetb${models.base}.h5
+    metrics:
+    - results/metrics/train.json
+    plots:
+    - results/history/train.csv
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - data/flower_photos
+    - evaluate.py
+    - results/data/test.txt
+    - results/models/myefficientnetb${models.base}.h5
+    params:
+    - evaluate
+    metrics:
+    - results/metrics/evaluate.json
+plots:
+- Loss:
+    x: epoch
+    y:
+      results/history/train.csv: ['loss', 'val_loss']
+    title: Loss
+    x_label: Epoch
+    y_label: Loss
+- Accuracy:
+    x: epoch
+    y:
+      results/history/train.csv: ['accuracy', 'val_accuracy']
+    title: Accuracy
+    x_label: Epoch
+    y_label: Accuracy

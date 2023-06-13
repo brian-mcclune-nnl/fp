@@ -1,0 +1,18 @@
+models:
+  base: 0
+split:
+  test_split: 0.1
+preprocess:
+  img_height: 180
+  img_width: 180
+augment:
+  rotation_factor: 0.15
+  translation_factor: 0.1
+  contrast_factor: 0.1
+train:
+  validation_split: 0.2
+  batch_size: 32
+  epochs: 10
+  top_dropout_rate: 0.2
+evaluate:
+  batch_size: 64
