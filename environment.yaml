@@ -1,0 +1,11 @@
+name: fp
+dependencies:
+- python=3.11.*
+- pip
+- pip:
+  - tensorflow==2.12.*
+  - dvc[ssh]
+  - ipykernel
+  - matplotlib
+  - numpy
+  - pillow
